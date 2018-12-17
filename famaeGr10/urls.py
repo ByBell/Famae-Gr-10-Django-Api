@@ -18,10 +18,10 @@ from django.urls import path
 from django.conf.urls import url, include
 from rest_framework import routers
 
-from famaeGr10.views import TestPage
+from . import views
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    url(r'^zipcode/(?P<zip_code>\d+)/', TestPage.as_view()),
-    url(r'^zipcode/', TestPage.as_view()),
+    url(r'^zipcode/(?P<zipcode>\w{1,50})$', views.essai, name = "essai"),
+    # url('zipcode/', views.essai),
 ]
