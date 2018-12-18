@@ -15,13 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
 from django.conf.urls import url, include
-from rest_framework import routers
+from django.conf.urls.static import static
 
 from . import views
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    url(r'^zipcode/(?P<zipcode>\w{1,50})$', views.essai, name = "essai"),
+    url(r'^$', views.map, name="map"),
+    url(r'^zipcode/(?P<zipcode>\w{1,50})$', views.essai, name="essai"),
     # url('zipcode/', views.essai),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

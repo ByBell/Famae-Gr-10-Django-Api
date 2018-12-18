@@ -1,4 +1,6 @@
 from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render
+
 import pandas as pd
 
 contaminants = pd.read_csv('famaeGr10/data/contaminants2.csv', index_col=0)
@@ -8,6 +10,8 @@ data = contaminants.merge(zipcodes, left_on='locations_served', right_on='county
 data = data[['city', 'lat', 'long']]
 
 
+def map(request):
+    return render(request, 'map.html')
 
 def essai(request, zipcode):
 

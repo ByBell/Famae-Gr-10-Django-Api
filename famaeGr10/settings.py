@@ -54,7 +54,9 @@ ROOT_URLCONF = 'famaeGr10.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            './famaeGr10/templates/'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -117,4 +119,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+# Path where to deploy public static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# Route prefix that will be added for all static files 
 STATIC_URL = '/static/'
+
+# Path where static files are located
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "famaeGr10/static"),
+]

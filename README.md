@@ -1,4 +1,4 @@
-# Famae-Gr-10-Django-Api
+﻿# Famae-Gr-10-Django-Api
 
 ## Lancer le projet
 Prérequis: 
@@ -22,3 +22,8 @@ urlpatterns = [
     url(r'^zipcode/', TestPage.as_view()),
 ]
 ```
+
+## Complilation des assets
+
+Lancer la commande webpack
+``webpack --watch``

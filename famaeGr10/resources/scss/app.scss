@@ -1,0 +1,19 @@
+@import 'vendors/leaflet/leaflet.css';
+@import 'vendors/markercluster/marker_cluster.css';
+@import 'vendors/markercluster/marker_cluster.default.css';
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+.map{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%
+}
