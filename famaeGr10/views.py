@@ -18,7 +18,8 @@ def jsonByZipcode(request, zipcode):
     data2 = data.drop_duplicates().reset_index()
     del data2['index']
 
-    json = data2.to_json(orient='records')[1:-1].replace('},{', '} {')
-    dummyDict = {'data': json}
+    data2 = data2.head()
+    
+    jsonData = data2.to_json(orient="records")
 
-    return JsonResponse(dummyDict)
+    return HttpResponse(jsonData, content_type = 'application/json')
