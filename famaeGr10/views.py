@@ -13,7 +13,7 @@ data = data[['city', 'lat', 'long']]
 def map(request):
     return render(request, 'map.html')
 
-def essai(request, zipcode):
+def jsonByZipcode(request, zipcode):
 
     data2 = data.drop_duplicates().reset_index()
     del data2['index']

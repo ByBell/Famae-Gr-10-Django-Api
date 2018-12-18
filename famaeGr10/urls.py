@@ -24,6 +24,5 @@ from . import views
 urlpatterns = [
     # path('admin/', admin.site.urls),
     url(r'^$', views.map, name="map"),
-    url(r'^zipcode/(?P<zipcode>\w{1,50})$', views.essai, name="essai"),
-    # url('zipcode/', views.essai),
+    url(r'^zipcode/(?P<zipcode>\w{1,50})$', views.jsonByZipcode, name="jsonByZipcode"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
