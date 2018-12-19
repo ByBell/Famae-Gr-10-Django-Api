@@ -24,5 +24,8 @@ from . import views
 urlpatterns = [
     # path('admin/', admin.site.urls),
     url(r'^$', views.map, name="map"),
-    url(r'^zipcode/(?P<zipcode>\w{1,50})$', views.jsonByZipcode, name="jsonByZipcode"),
+    # url(r'^city/(?P<city>\w{1,50})$', views.jsonByCity, name="jsonByCity"),
+    url(r'^api/all/', views.byCity, name="all"),
+    url(r'^api/city/(?P<id>[\s\w]+)$', views.byCity, name="byCity"),
+    url(r'^api/search/(?P<search>[\s\w]+)$', views.autocomplete, name="autocomplete"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

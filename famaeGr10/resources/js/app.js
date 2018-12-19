@@ -43,7 +43,7 @@ var app = new Vue({
      */
     setMarkers: function(){
       var self = this;
-      var req = new Request("/zipcode/gaetan");
+      var req = new Request("/api/all");
 
       var allSourcesCanvas = L.canvas({ padding: 0 });
 
@@ -98,7 +98,8 @@ var app = new Vue({
     },
 
     /**
-     * 
+     * Compute marker size
+     * @return Integer
      */
     getMarkerSize: function(){
       var zoom = this.map.getZoom();
