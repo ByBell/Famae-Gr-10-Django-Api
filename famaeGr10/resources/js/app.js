@@ -2,13 +2,12 @@ import '../scss/app.scss'
 
 import Vue from 'vue'
 import L from 'leaflet'
-import 'leaflet.markercluster'
 
 var app = new Vue({
   data: {
     map: null,
-    position: [38, -94.33, 5],
-    dots: null,
+    markers: [],
+    position: [38, -94.33, 5]
   },
   created: function(){
     this.initMap();
@@ -40,10 +39,76 @@ var app = new Vue({
     },
 
     /**
-     * 
+     * Fetch data points and place markers on the map
      */
     setMarkers: function(){
+      var self = this;
+      var req = new Request("/zipcode/gaetan");
+
+      var allSourcesCanvas = L.canvas({ padding: 0 });
+
+      fetch(req)
+      .then(function(res) {
+        if (res.status === 200) {
+          return res.json();
+        } else {
+          throw new Error("Something went wrong on api server!");
+        }
+      })
+      .then(function(data) {
+        for(var item of data) {
+          self.addMarker(item, allSourcesCanvas)
+        }
+
+        self.map.on('zoomend', function(){
+          var circleSize = self.getMarkerSize();
+
+          for(var marker of self.markers){
+            marker.setRadius(circleSize)
+          }
+        })
+      })
+      .catch(function(err) {
+        console.error("Error - ", err);
+      })
+    },
+
+    /**
+     * Place the marker into the map, defines the style
+     * @param {*} item 
+     * @param {*} layer 
+     */
+    addMarker: function(item, canvas){
+      var self = this;
+
+      // Create marker
+      var marker = L.circleMarker([item.lat, item.long], {
+        renderer: canvas,
+        weight: 0,
+        fillColor: '#FF7F50',
+        fillOpacity: 0.6,
+        title: item.city || null,
+      }).on('click', function(){
+        console.log('lol');
+      })
+      .setRadius(self.getMarkerSize())
+      .addTo(self.map);
       
+      self.markers.push(marker)
+    },
+
+    /**
+     * 
+     */
+    getMarkerSize: function(){
+      var zoom = this.map.getZoom();
+      var circleSize = 3
+
+      if(zoom >this.position[2]){
+        circleSize = 3 + (1 * (zoom - this.position[2]))
+      }
+
+      return circleSize;
     }
   }
 })

@@ -17,8 +17,6 @@ def jsonByZipcode(request, zipcode):
 
     data2 = data.drop_duplicates().reset_index()
     del data2['index']
-
-    data2 = data2.head()
     
     jsonData = data2.to_json(orient="records")
 
