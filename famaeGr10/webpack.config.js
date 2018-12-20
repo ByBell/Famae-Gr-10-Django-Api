@@ -8,6 +8,11 @@ module.exports = {
     filename: 'app.js',
     path: path.resolve(__dirname, 'static/assets/js/')
   },
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js' // 'vue/dist/vue.common.js' for webpack 1
+    }
+  },
   plugins: [
     new MiniCssExtractPlugin({
       filename: "app.css",

@@ -4,15 +4,27 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 	<title>What's in my water ?</title>
-	<link rel="stylesheet" href="{% static "/assets/css/app.css" %}"/>
 </head>
 <body>
 	<div id="app">
-		<header>
+		<header id="header" class="header">
+			<div class="header-left">
+				What's in my <span>water ?</span>
+			</div>
 			<div class="search-box">
-				<input class="search-input"type="text">
+				<input class="search-input" type="text" v-on:keyup="onSearch" placeholder="Search by city, supplier name..." >
+				<ul v-show="results.length != 0" class="search-results">
+					<li v-for="item in results" v-on:click="onMarkerClick(item.id)">
+						<span>{% templatetag openvariable %} item.supplier_name {% templatetag closevariable %}</span>
+						{% templatetag openvariable %} item.city {% templatetag closevariable %}
+					</li>
+				</ul>
 			</div>
 		</header>
+		<div class="source-details">
+			<h2>{% templatetag openvariable %} source.supplier_name {% templatetag closevariable %}</h2>
+			<span class="source-supplier">{% templatetag openvariable %} source.city {% templatetag closevariable %}</span>
+		</div>
 		<div id="map" class="map"></div>
 	</div>
 	<!-- Javascript files -->
