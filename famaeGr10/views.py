@@ -4,20 +4,22 @@ from functools import lru_cache
 
 import pandas as pd
 
+s = pd.read_csv('famaeGr10/data/sources.csv', index_col=0)
+
 
 def map(request):
   return render(request, 'map.html')
 
 
 def sources(request):
-  dataset = get_dataset()
-  dots = dataset[['id', 'city', 'lat', 'long']].drop_duplicates(['lat', 'long']).reset_index()
+  dataset = s
+  dots = dataset[['id', 'city', 'lat', 'long']].drop_duplicates(['lat', 'long']).dropna().reset_index()
 
   return HttpResponse(dots.to_json(orient="records"), content_type="application/json")
 
 
 def search(request, search=None):
-  dataset = get_dataset(drop_duplicates=True)
+  dataset = s
 
   # Get rows where the city or supplier name starts by search
   cityNameStartsWith = dataset['city'].str.startswith(search.upper())
@@ -30,7 +32,7 @@ def search(request, search=None):
   return HttpResponse(results.head(10).to_json(orient="records"), content_type='application/json')
 
 def source(request, id):
-  dataset = get_dataset()
+  dataset = s
 
   rows = dataset[dataset['id'] == int(id)]
 
@@ -39,12 +41,3 @@ def source(request, id):
   results = results.reset_index().rename(columns={0: 'contaminants'}).to_json(orient='records')
 
   return HttpResponse(results, content_type='application/json')
-
-
-def get_dataset(drop_duplicates=False):
-  # Read contaminants and zip codes CSV files
-  contaminants = pd.read_csv('famaeGr10/data/contaminants2.csv', index_col=0)
-  zipcodes = pd.read_csv('famaeGr10/data/zip_codes2.csv', index_col=0)
-
-  # Join both files
-  return contaminants.merge(zipcodes, left_on='locations_served', right_on='county')

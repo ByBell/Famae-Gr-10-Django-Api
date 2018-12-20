@@ -120,6 +120,9 @@ var app = new Vue({
      */
     onSearch: function(e){
       var self = this;
+
+      if(e.target.value.length % 2 != 1) return;
+
       var req = new Request("/api/search/"+e.target.value);
 
       fetch(req)
@@ -158,7 +161,7 @@ var app = new Vue({
         // Set focused source
         self.source = data[0]
         // Place user focus at good marker
-        self.map.setView([self.source.lat, self.source.long], 17);
+        self.map.setView([self.source.lat, self.source.long], 14);
       })
       .catch(function(err) {
         console.error("Error - ", err);
