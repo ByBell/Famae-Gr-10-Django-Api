@@ -25,7 +25,7 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     url(r'^$', views.map, name="map"),
     # url(r'^city/(?P<city>\w{1,50})$', views.jsonByCity, name="jsonByCity"),
-    url(r'^api/all/', views.byCity, name="all"),
-    url(r'^api/city/(?P<id>[\s\w]+)$', views.byCity, name="byCity"),
-    url(r'^api/search/(?P<search>[\s\w]+)$', views.autocomplete, name="autocomplete"),
+    url(r'^api/all/', views.sources, name="all"),
+    url(r'^api/source/(?P<id>[0-9]+)$', views.source, name="source"),
+    url(r'^api/search/(?P<search>[\s\w]+)$', views.search, name="search"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

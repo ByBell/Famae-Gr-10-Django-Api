@@ -4,12 +4,15 @@ import Vue from 'vue'
 import L from 'leaflet'
 
 var app = new Vue({
+  el: '#app',
   data: {
     map: null,
     markers: [],
-    position: [38, -94.33, 5]
+    position: [38, -94.33, 5],
+    results: [],
+    source: {}
   },
-  created: function(){
+  mounted: function(){
     this.initMap();
     this.setMarkers();
   },
@@ -43,7 +46,7 @@ var app = new Vue({
      */
     setMarkers: function(){
       var self = this;
-      var req = new Request("/api/all");
+      var req = new Request("/api/all/");
 
       var allSourcesCanvas = L.canvas({ padding: 0 });
 
@@ -89,7 +92,7 @@ var app = new Vue({
         fillOpacity: 0.6,
         title: item.city || null,
       }).on('click', function(){
-        console.log('lol');
+        self.onMarkerClick(item.id)
       })
       .setRadius(self.getMarkerSize())
       .addTo(self.map);
@@ -110,6 +113,59 @@ var app = new Vue({
       }
 
       return circleSize;
+    },
+
+    /**
+     * 
+     */
+    onSearch: function(e){
+      var self = this;
+
+      if(e.target.value.length % 2 != 1) return;
+
+      var req = new Request("/api/search/"+e.target.value);
+
+      fetch(req)
+      .then(function(res) {
+        if (res.status === 200) {
+          return res.json()
+        } else {
+          throw new Error("Something went wrong on api server!");
+        }
+      })
+      .then(function(data) {
+        self.results = data
+      })
+      .catch(function(err) {
+        console.error("Error - ", err);
+      });
+    },
+
+
+    onMarkerClick: function(id){
+      var self = this;
+      var req = new Request("/api/source/"+id);
+
+      // Remove results to remove list
+      self.results = [];
+
+      fetch(req)
+      .then(function(res) {
+        if (res.status === 200) {
+          return res.json()
+        } else {
+          throw new Error("Something went wrong on api server!");
+        }
+      })
+      .then(function(data) {
+        // Set focused source
+        self.source = data[0]
+        // Place user focus at good marker
+        self.map.setView([self.source.lat, self.source.long], 14);
+      })
+      .catch(function(err) {
+        console.error("Error - ", err);
+      });
     }
   }
 })
