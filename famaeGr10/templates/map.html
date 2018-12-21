@@ -46,7 +46,7 @@
 				
 				<table class="contaminants-table">
 					<tr class="table-header">
-						<th>Contaminant</th>
+						<th style="width: 240px">Contaminant</th>
 						<th>Average</th>
 						<th>Health limit</th>
 					</tr>
@@ -54,11 +54,11 @@
 						<td>
 							{% templatetag openvariable %} contaminant.contaminant {% templatetag closevariable %}
 						</td>
-						<td>
-							{% templatetag openvariable %} contaminant.average_result {% templatetag closevariable %}
+						<td style="text-align: right">
+							{% templatetag openvariable %} contaminant.average_result {% templatetag closevariable %}<span style="font-weight: 100;font-size: 12px;">{% templatetag openvariable %} contaminant.unit {% templatetag closevariable %}</span>
 						</td>
-						<td>
-							{% templatetag openvariable %} contaminant.health_limit {% templatetag closevariable %}
+						<td style="text-align: right">
+							{% templatetag openvariable %} contaminant.health_limit {% templatetag closevariable %}<span style="font-weight: 100;font-size: 12px;">{% templatetag openvariable %} contaminant.unit {% templatetag closevariable %}</span>
 						</td>
 					</tr>
 				</table>
