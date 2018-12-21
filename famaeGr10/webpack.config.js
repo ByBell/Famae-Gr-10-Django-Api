@@ -42,8 +42,8 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: '../images/[name].[ext]',
-              context: ''
+              name: '/static/assets/images/[name].[ext]',
+              context: path.resolve(__dirname, '/static/assets/')
             }
           },
           {

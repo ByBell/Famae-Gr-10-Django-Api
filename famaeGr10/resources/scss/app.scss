@@ -71,6 +71,16 @@ input{
     padding-left: 25px;
     pointer-events:auto;
 
+    img{
+        float: left;
+        width: 64px;
+        height: 64px;
+        position: relative;
+        top: -8px;
+        margin-right: 3px;
+        left: -7px;
+    }
+
     span{
         font-weight: bold;
         font-size: 24px;

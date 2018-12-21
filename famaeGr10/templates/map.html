@@ -9,6 +9,7 @@
 	<div id="app">
 		<header id="header" class="header">
 			<a class="header-left" href="/">
+				<img src="{% static "/assets/images/logo.png" %}" alt="What's in my water" class="logo">
 				What's in my <span>water ?</span>
 			</a>
 			<div class="search-box">
@@ -27,7 +28,7 @@
 		</header>
 		<div id="legend" class="legend">
 			<span class="legend-text1">Clean</span>
-			<span class="legend-text2">Dirty</span>
+			<span class="legend-text2">Polluted</span>
 			<span class="legend-gradient"></span>
 		</div>
 		<div class="source-details" v-show="source.hasOwnProperty('city')">
@@ -55,9 +56,11 @@
 						</td>
 						<td>
 							{% templatetag openvariable %} contaminant.average_result {% templatetag closevariable %}
+							{% templatetag openvariable %} contaminant.unit {% templatetag closevariable %}
 						</td>
 						<td>
 							{% templatetag openvariable %} contaminant.health_limit {% templatetag closevariable %}
+							{% templatetag openvariable %} contaminant.average_result {% templatetag closevariable %}
 						</td>
 					</tr>
 				</table>
