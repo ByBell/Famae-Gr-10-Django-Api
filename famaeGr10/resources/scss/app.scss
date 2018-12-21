@@ -7,6 +7,8 @@ $green: #1dd1a1;
 $orange: #ff9f43;
 $red: #ee5253;
 
+$legend-gradient1: #f62a2a;
+$legend-gradient2: #d5ff50;
 
 html{
     font-family: 'Nunito', sans-serif;
@@ -124,6 +126,48 @@ a.header-left{
             background: #eeeeee;
             cursor: pointer;
         }
+    }
+}
+
+.header-right{
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    text-align: right;
+
+    span{
+        font-size: 26px;
+        display: block;
+    }
+}
+
+.legend{
+    position: fixed;
+    left: 25px;
+    bottom: 20px;
+    z-index: 9999;
+
+    .legend-gradient{
+        position: absolute;
+        left: 0px;
+        bottom: 25px;
+        display: block;
+        height: 100px;
+        width: 30px;
+        border-radius: 4px;
+        border: 2px solid rgba(0,0,0,0.2);
+        overflow: hidden;
+        background: -moz-linear-gradient(0deg, $legend-gradient1 0%, $legend-gradient2 100%);
+        background: -webkit-linear-gradient(0deg, $legend-gradient1 0%, $legend-gradient2 100%);
+        background: linear-gradient(0deg, $legend-gradient1 0%, $legend-gradient2 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="$legend-gradient1",endColorstr="$legend-gradient2",GradientType=0);
+        background-clip: padding-box;
+    }
+
+    .legend-text1{
+        position: absolute;
+        left: 0px;
+        bottom: 125px;
     }
 }
 

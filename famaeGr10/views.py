@@ -5,10 +5,10 @@ from functools import lru_cache
 import pandas as pd
 
 s = pd.read_csv('famaeGr10/data/sources.csv', index_col=0)
-
+s_count = len(s.groupby('id'))
 
 def map(request):
-  return render(request, 'map.html')
+  return render(request, 'map.html', {'source_count': s_count})
 
 
 def sources(request):

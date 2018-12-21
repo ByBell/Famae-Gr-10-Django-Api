@@ -177,7 +177,6 @@ var app = new Vue({
       var color1 = 'f62a2a';
       var color2 = 'd5ff50';
       var ratio = count / 12;
-      console.log(ratio);
       
       var hex = function(x) {
         x = x.toString(16);
