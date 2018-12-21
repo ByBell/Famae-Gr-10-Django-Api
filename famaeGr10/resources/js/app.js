@@ -3,6 +3,10 @@ import '../scss/app.scss'
 import Vue from 'vue'
 import L from 'leaflet'
 
+const RED = '';
+const ORANGE = '';
+const GREEN = '';
+
 var app = new Vue({
   el: '#app',
   data: {
@@ -83,12 +87,13 @@ var app = new Vue({
      */
     addMarker: function(item, canvas){
       var self = this;
+      var markerColor = self.getMarkerColor(item.bad_source_counts);
 
       // Create marker
       var marker = L.circleMarker([item.lat, item.long], {
         renderer: canvas,
         weight: 0,
-        fillColor: '#FF7F50',
+        fillColor: markerColor,
         fillOpacity: 0.6,
         title: item.city || null,
       }).on('click', function(){
@@ -166,6 +171,24 @@ var app = new Vue({
       .catch(function(err) {
         console.error("Error - ", err);
       });
+    },
+
+    getMarkerColor: function(count){
+      var color1 = 'f62a2a';
+      var color2 = 'd5ff50';
+      var ratio = count / 12;
+      console.log(ratio);
+      
+      var hex = function(x) {
+        x = x.toString(16);
+        return (x.length == 1) ? '0' + x : x;
+      };
+
+      var r = Math.ceil(parseInt(color1.substring(0,2), 16) * ratio + parseInt(color2.substring(0,2), 16) * (1-ratio));
+      var g = Math.ceil(parseInt(color1.substring(2,4), 16) * ratio + parseInt(color2.substring(2,4), 16) * (1-ratio));
+      var b = Math.ceil(parseInt(color1.substring(4,6), 16) * ratio + parseInt(color2.substring(4,6), 16) * (1-ratio));
+
+      return '#' + hex(r) + hex(g) + hex(b);
     }
   }
 })

@@ -13,7 +13,7 @@ def map(request):
 
 def sources(request):
   dataset = s
-  dots = dataset[['id', 'city', 'lat', 'long']].drop_duplicates(['lat', 'long']).dropna().reset_index()
+  dots = dataset[['id', 'bad_source_counts', 'lat', 'long']].drop_duplicates(['lat', 'long']).dropna().reset_index()
 
   return HttpResponse(dots.to_json(orient="records"), content_type="application/json")
 
@@ -36,8 +36,8 @@ def source(request, id):
 
   rows = dataset[dataset['id'] == int(id)]
 
-  results = rows.groupby(['id', 'city', 'supplier_name', 'lat', 'long'], as_index=False)
-  results = results.apply(lambda x: x[['contaminant', 'average_result', 'max_result', 'health_limit', 'health_limit_exceeded', 'legal_limit', 'legal_limit_exceeded']].to_dict('r'))
+  results = rows.groupby(['id', 'city', 'supplier_name', 'number_of_people_served', 'lat', 'long'], as_index=False)
+  results = results.apply(lambda x: x[['contaminant', 'average_result', 'max_result', 'health_limit', 'health_limit_exceeded', 'legal_limit', 'legal_limit_exceeded', 'score']].to_dict('r'))
   results = results.reset_index().rename(columns={0: 'contaminants'}).to_json(orient='records')
 
   return HttpResponse(results, content_type='application/json')

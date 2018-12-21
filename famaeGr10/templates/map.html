@@ -8,9 +8,9 @@
 <body>
 	<div id="app">
 		<header id="header" class="header">
-			<div class="header-left">
+			<a class="header-left" href="/">
 				What's in my <span>water ?</span>
-			</div>
+			</a>
 			<div class="search-box">
 				<input class="search-input" type="text" v-on:keyup="onSearch" placeholder="Search by city, supplier name..." >
 				<ul v-show="results.length != 0" class="search-results">
@@ -25,20 +25,21 @@
 			<div class="source-details-header">
 				<h2>{% templatetag openvariable %} source.supplier_name {% templatetag closevariable %}</h2>
 				<span class="source-supplier">{% templatetag openvariable %} source.city {% templatetag closevariable %}</span>
+				<a href="#" class="close" v-on:click="source = {}"></a>
 			</div>
 			<div class="source-details-content">
-				<div class="source-detail">
-					Served by this source
-					<span>{% templatetag openvariable %} source.city {% templatetag closevariable %}</span>
+				<div class="source-people-number">
+					People served by this source
+					<span>{% templatetag openvariable %} source.number_of_people_served {% templatetag closevariable %}</span>
 				</div>
 				
 				<table class="contaminants-table">
-					<tr>
+					<tr class="table-header">
 						<th>Contaminant</th>
-						<th>Concentration</th>
+						<th>Average</th>
 						<th>Health limit</th>
 					</tr>
-					<tr v-for="contaminant in source.contaminants">
+					<tr class="contaminant" v-bind:class="{'is-good': contaminant.score == 'good', 'is-acceptable': contaminant.score == 'acceptable', 'is-bad': contaminant.score == 'bad' }" v-for="contaminant in source.contaminants">
 						<td>
 							{% templatetag openvariable %} contaminant.contaminant {% templatetag closevariable %}
 						</td>
@@ -49,13 +50,7 @@
 							{% templatetag openvariable %} contaminant.health_limit {% templatetag closevariable %}
 						</td>
 					</tr>
-
 				</table>
-				<ul class="source-contaminants">
-					<li class="contaminant" v-for="contaminant in source.contaminants">
-						<span class="contaminant-name"></span>
-					</li>
-				</ul>
 			</div>
 		</div>
 		<div id="map" class="map"></div>
