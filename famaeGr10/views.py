@@ -4,8 +4,16 @@ from functools import lru_cache
 
 import pandas as pd
 
-s = pd.read_csv('famaeGr10/data/sources.csv', index_col=0)
+# s = pd.read_csv('famaeGr10/data/sources.csv', index_col=0)
 
+def index_site(request):
+  return render(request, 'index.html')
+
+def dataviz_site(request):
+  return render(request, 'eda.html')
+
+def about_us_site(request):
+  return render(request, 'about.html')
 
 def map(request):
   return render(request, 'map.html')

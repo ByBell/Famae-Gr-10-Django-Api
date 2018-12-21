@@ -24,6 +24,9 @@ from . import views
 urlpatterns = [
     # path('admin/', admin.site.urls),
     url(r'^$', views.map, name="map"),
+    url(r'^site/$', views.index_site, name="index_site"),
+    url(r'^site/data$', views.dataviz_site, name="data_site"),
+    url(r'^site/about$', views.about_us_site, name="about_site"),
     # url(r'^city/(?P<city>\w{1,50})$', views.jsonByCity, name="jsonByCity"),
     url(r'^api/all/', views.sources, name="all"),
     url(r'^api/source/(?P<id>[0-9]+)$', views.source, name="source"),
