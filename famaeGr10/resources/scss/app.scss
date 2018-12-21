@@ -251,7 +251,7 @@ a.header-left{
 
     th{
         text-align: left;
-        font-style: italic;
+        font-size: 16px;
         font-weight: lighter;
     }
     
@@ -288,5 +288,23 @@ a.header-left{
 
 .close:after{
     transform: rotate(-45deg);
+}
+
+a.site-link{
+    position: fixed;
+    bottom: 40px;
+    right: 25px;
+    background: #028fcc;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    z-index: 9999;
+    transition: color 0.3s, background 0.3s;
+
+    &:hover{
+        background: #ffffff;
+        color: #028fcc;
+    }
 }
   
