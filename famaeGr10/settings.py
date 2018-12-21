@@ -25,7 +25,10 @@ SECRET_KEY = 'zk_mxj__@me!vn=3r!evc7ueo+cze_%l@8jbu1uaro4r$bgky='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    'famae.brendanpoirier.fr'
+]
 
 
 # Application definition

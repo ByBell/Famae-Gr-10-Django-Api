@@ -3,6 +3,13 @@
 @import 'vendors/markercluster/marker_cluster.default.css';
 @import url('https://fonts.googleapis.com/css?family=Nunito:300,300i,400,400i,600,700,800,900');
 
+$green: #1dd1a1;
+$orange: #ff9f43;
+$red: #ee5253;
+
+$legend-gradient1: #f62a2a;
+$legend-gradient2: #d5ff50;
+
 html{
     font-family: 'Nunito', sans-serif;
     font-size: 16px;
@@ -22,7 +29,7 @@ input{
 }
 
 .map{
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     width: 100%;
@@ -45,7 +52,7 @@ input{
 
 .header,
 .header-left{
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     padding: 15px;
@@ -55,12 +62,14 @@ input{
     line-height: 1.1;
     width: 100%;
     z-index: 9999;
+    pointer-events: none;
 }
 
 .header-left{
     font-size: 18px;
     padding: 18px 0;
     padding-left: 25px;
+    pointer-events:auto;
 
     span{
         font-weight: bold;
@@ -69,10 +78,21 @@ input{
     }
 }
 
+a.header-left{
+    color: #000000;
+    text-decoration: none;
+
+    &:link,
+    &:visited{
+        color: #000000;
+    }
+}
+
 .search-box{
     position: relative;
     width: 450px;
     margin: 0 auto;
+    pointer-events:auto;
 }
 
 .search-input{
@@ -109,18 +129,154 @@ input{
     }
 }
 
+.header-right{
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    text-align: right;
+
+    span{
+        font-size: 26px;
+        display: block;
+    }
+}
+
+.legend{
+    position: fixed;
+    left: 25px;
+    bottom: 20px;
+    z-index: 9999;
+
+    .legend-gradient{
+        position: absolute;
+        left: 0px;
+        bottom: 25px;
+        display: block;
+        height: 100px;
+        width: 30px;
+        border-radius: 4px;
+        border: 2px solid rgba(0,0,0,0.2);
+        overflow: hidden;
+        background: -moz-linear-gradient(0deg, $legend-gradient1 0%, $legend-gradient2 100%);
+        background: -webkit-linear-gradient(0deg, $legend-gradient1 0%, $legend-gradient2 100%);
+        background: linear-gradient(0deg, $legend-gradient1 0%, $legend-gradient2 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="$legend-gradient1",endColorstr="$legend-gradient2",GradientType=0);
+        background-clip: padding-box;
+    }
+
+    .legend-text1{
+        position: absolute;
+        left: 0px;
+        bottom: 125px;
+    }
+}
+
 .source-details{
     position: absolute;
-    width: 450px;
+    width: 475px;
     z-index: 9999;
     top: 0;
-    bottom: 0;
     right: 0;
+    min-height: 100%;
+    height: auto;
     padding: 20px;
     background: #ffffff;
+}
+
+.source-details-header{
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
 
     h2{
         margin: 0;
     }
-    
 }
+
+.source-people-number{
+    text-align: center;
+    margin-bottom: 10px;
+
+    span{
+        display: block;
+        font-weight: bold;
+        font-size: 26px;
+    }
+}
+
+.contaminants-table{
+    width: 100%;
+    font-size: 18px;
+
+    tr{
+        height: 42px;
+    }
+
+    tr::before{
+        content: ' ';
+        display: block;
+        position: relative;
+        top: 13px;
+        left: -30px;
+    }
+
+    tr.contaminant::before{
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: $green;
+    }
+
+    .contaminant.is-good::before{
+        background: $green;
+    }
+
+    .contaminant.is-acceptable::before{
+        background: $orange;
+    }
+
+    .contaminant.is-bad::before{
+        background: $red;
+    }
+
+    th{
+        text-align: left;
+        font-style: italic;
+        font-weight: lighter;
+    }
+    
+    td{
+        font-weight: bold;
+    }
+}
+
+.close{
+    position: absolute;
+    right: 32px;
+    top: 28px;
+    width: 32px;
+    height: 32px;
+    opacity: 0.3;
+}
+
+.close:hover{
+    opacity: 1;
+}
+
+.close:before, .close:after{
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 33px;
+    width: 2px;
+    background-color: #333;
+}
+  
+.close:before{
+    transform: rotate(45deg);
+}
+
+.close:after{
+    transform: rotate(-45deg);
+}
+  
